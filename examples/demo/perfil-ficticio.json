@@ -6,5 +6,8 @@
   "organization": "Estudio Horizonte",
   "bio": "Acompaño a equipos a convertir ideas en proyectos concretos. Perfil ficticio de demostración.",
   "email": "marina@example.org",
-  "signature_color": "#176B65"
+  "signature_color": "#176B65",
+  "signature_image_url": "https://raw.githubusercontent.com/atrcode/compartir-datos-personales-con-qr./main/examples/demo/marina-rios-ia.jpg",
+  "signature_image_width": 80,
+  "signature_image_height": 80
 }

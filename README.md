@@ -8,7 +8,7 @@ Este proyecto es una **skill abierta para asistentes de IA**: una carpeta de ins
 
 ![Ejemplo ilustrativo del kit: sitio móvil de Marina Ríos, QR de muestra, firma de email, contacto vCard y guía de instalación.](docs/images/kit-visual.png)
 
-*Marina Ríos y Estudio Horizonte son ficticios. El QR de esta imagen abre este repositorio. En una entrega real, el QR abre tu tarjeta publicada.*
+*Marina Ríos y Estudio Horizonte son ficticios; el retrato fue generado con IA. El QR de esta imagen abre este repositorio. En una entrega real, el QR abre tu tarjeta publicada.*
 
 ## ¿Qué problema resuelve?
 
@@ -39,7 +39,7 @@ La skill guía el trabajo del asistente. El script de Python genera la vCard, la
 
 ## Un ejemplo concreto
 
-Marina es una consultora ficticia que quiere compartir su presentación después de un encuentro. Usa Gmail en Chrome sobre Windows y prefiere una tarjeta sobria, con un monograma porque no tiene logo ni foto.
+Marina es una consultora ficticia que quiere compartir su presentación después de un encuentro. Usa Gmail en Chrome sobre Windows y prefiere una tarjeta sobria, con un retrato generado con IA como foto de ejemplo.
 
 > Usá esta skill para crear mi tarjeta digital. Soy Marina Ríos, consultora de innovación en Estudio Horizonte. Mi correo de ejemplo es marina@example.org. Quiero una bio breve, un artículo para leer y una firma para Gmail en Chrome sobre Windows. Usá verde oscuro y fondo claro. Preguntame de a un dato lo que falte.
 
