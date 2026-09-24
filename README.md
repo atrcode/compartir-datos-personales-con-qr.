@@ -1,0 +1,1 @@
+# compartir-datos-personales-con-qr.
