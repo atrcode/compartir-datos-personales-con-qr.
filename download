@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env*
+perfil.json
+profile.json
+entrega*/
+output*/
+*.vcf
+qr-contacto.png
+qr-contacto.svg
+firma-email.html
+firma-email.txt
+.DS_Store

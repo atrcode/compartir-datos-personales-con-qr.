@@ -1,0 +1,33 @@
+{
+  "name": "Ana Pérez",
+  "given_name": "Ana",
+  "family_name": "Pérez",
+  "role": "Consultora de innovación",
+  "organization": "Estudio Ejemplo",
+  "bio": "Acompaño a equipos a transformar ideas en proyectos concretos.",
+  "email": "ana@example.org",
+  "phone": "+15550102020",
+  "whatsapp": "+15550102020",
+  "whatsapp_message": "Hola Ana, vi tu tarjeta digital.",
+  "linkedin": "https://www.linkedin.com/in/perfil-de-ejemplo/",
+  "website": "https://example.org/",
+  "public_url": "https://example.org/ana/",
+  "signature_color": "#155E63",
+  "signature_image_url": "",
+  "signature_image_width": 80,
+  "signature_image_height": 80,
+  "links": [],
+  "resources": [
+    {"title": "Guía de ejemplo", "url": "https://example.org/guia.pdf", "action": "Descargar PDF", "signature": true}
+  ],
+  "intake_only": {
+    "logo_local": "",
+    "photo_local": "",
+    "brand_colors": ["#155E63"],
+    "mail_service": "Gmail",
+    "mail_app": "Navegador",
+    "mail_device": "Windows",
+    "mail_version": "",
+    "hosting": "Por definir"
+  }
+}
