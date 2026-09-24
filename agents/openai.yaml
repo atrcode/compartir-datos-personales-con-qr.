@@ -1,7 +1,7 @@
 interface:
   display_name: Tarjeta digital, QR y firma de email
   short_description: Crea tu sitio de contacto, QR y firma de correo
-  default_prompt: Usá $crear-tarjeta-qr para pedirme los datos de a uno y crear mi
+  default_prompt: Usá $compartir-datos-personales-con-qr para pedirme los datos de a uno y crear mi
     sitio de contacto, QR y firma de email con instrucciones de instalación.
   icon_small: assets/icon.svg
   icon_large: assets/icon.svg
