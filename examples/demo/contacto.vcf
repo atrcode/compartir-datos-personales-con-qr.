@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Marina Ríos
+N:Ríos;Marina;;;
+ORG:Estudio Horizonte
+TITLE:Consultora de innovación
+NOTE:Acompaño a equipos a convertir ideas en proyectos concretos. Perfil f
+ icticio de demostración.
+EMAIL;TYPE=INTERNET:marina@example.org
+END:VCARD
