@@ -28,6 +28,16 @@
     "mail_app": "Navegador",
     "mail_device": "Windows",
     "mail_version": "",
-    "hosting": "Por definir"
+    "hosting": "Por definir",
+    "wallet": {
+      "targets": [],
+      "issuance_mode": "undecided",
+      "provider": "",
+      "apple_pass_type_identifier": "",
+      "apple_team_identifier": "",
+      "google_issuer_id": "",
+      "apple_status": "not_requested",
+      "google_status": "not_requested"
+    }
   }
 }

@@ -23,6 +23,10 @@ Consultar perfil y conversación antes de cada pregunta. Recorrer este orden, om
 | Dispositivo | ¿Lo usás en Windows, Mac, Android o iPhone? | Pedir solo destinos de instalación relevantes. |
 | Versión | ¿Usás Outlook nuevo o clásico? | Solo cuando cambie las instrucciones. |
 | Publicación | ¿Querés alojarla en un sitio/dominio que ya tenés o crear uno nuevo? | Respetar contexto; no contratar dominio por defecto. |
+| Wallet | ¿Querés guardar la tarjeta en Apple Wallet, Google Wallet, ambas o ninguna? | Opcional; si se pidieron iOS y Android, registrar ambas sin preguntar otra vez. |
+| Emisión Wallet | ¿Ya tenés una cuenta o servicio para emitir tarjetas Wallet? | Solo si eligió Wallet. Si no sabe, explicar las opciones y preparar lo posible. |
+
+Al elegir Wallet, seguir `wallet.md` y preguntar de a uno solo los requisitos que falten. Reutilizar nombre, marca, foto/logo y URL. No confundir el sistema donde usa el correo con los destinatarios de los pases: puede crear para ambas plataformas aunque use un solo teléfono. No pedir claves privadas ni contraseñas por chat.
 
 Para varias personas, reutilizar identidad de marca y hosting; recopilar datos personales por separado y emitir un `.vcf` por persona. Definir páginas individuales o directorio compartido antes de generar QRs.
 

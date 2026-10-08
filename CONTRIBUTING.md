@@ -12,3 +12,7 @@ python3 -m unittest discover -s tests -v
 Conservá la entrevista de una pregunta por vez y el criterio de no generar un QR final sin URL HTTPS estable. Para pasos de instalación de firmas, enlazá la documentación oficial vigente. No agregues contactos reales, logos de clientes, tokens ni entregas producidas.
 
 Los cambios se publican bajo la licencia MIT del repositorio.
+
+## Cambios relacionados con Wallet
+
+Conservá la distinción entre preparación, modo demo, emisión válida e instalación probada. Enlazá documentación oficial vigente de Apple o Google y describí qué se verificó y en qué dispositivo o entorno. No incluyas certificados privados, claves de cuentas de servicio ni pases de personas reales. Los botones de instalación deben apuntar a pases válidos; si faltan requisitos, explicá el paso pendiente. El generador de QR, vCard y firma no debe anunciar emisión Wallet si no la implementa.
