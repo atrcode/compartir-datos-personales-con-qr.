@@ -4,10 +4,11 @@ enum CardWire {
     static let service = "481cf310-1ca4-4c90-b639-14b072d803c7"
     static let value = "481cf311-1ca4-4c90-b639-14b072d803c7"
     static func encode(_ text: String) -> Data? {
+        let host = String(text.dropFirst(8).prefix { $0 != "/" && $0 != "?" && $0 != "#" })
         guard text.hasPrefix("https://"), text.utf8.count <= 384,
               text.unicodeScalars.allSatisfy({ $0.value > 32 && $0.value < 127 }),
               text.range(of: #"^[A-Za-z0-9\-._~:/?#@!$&'()*+,;=%]+$"#, options: .regularExpression) != nil,
-              let url = URLComponents(string: text), let host = url.percentEncodedHost, host.contains("."),
+              let url = URLComponents(string: text), url.host != nil, host.contains("."),
               url.user == nil, url.password == nil, url.port == nil,
               url.url != nil else { return nil }
         guard host.components(separatedBy: ".").allSatisfy({

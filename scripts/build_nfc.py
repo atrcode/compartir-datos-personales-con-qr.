@@ -14,7 +14,7 @@ def validate_url(url):
     if not re.fullmatch(r"[A-Za-z0-9\-._~:/?#@!$&'()*+,;=%]+", url) or re.search(r'%(?![0-9A-Fa-f]{2})', url):
         raise ValueError('Codificá espacios y caracteres especiales en la URL.')
     parsed = urlsplit(url)
-    host = parsed.hostname or ''
+    host = parsed.netloc
     if '.' not in host or parsed.username is not None or parsed.password is not None or parsed.port is not None:
         raise ValueError('Usá un dominio sin credenciales ni puerto.')
     if any(not re.fullmatch(r'[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?', label) for label in host.split('.')):
