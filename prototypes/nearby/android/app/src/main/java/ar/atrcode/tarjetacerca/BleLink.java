@@ -30,7 +30,7 @@ public final class BleLink {
     private final Runnable timeout = () -> fail("Sesión finalizada. Podés volver a intentarlo.");
     public BleLink(Context context, Listener listener) {
         this.context = context; this.listener = listener;
-        manager = context.getSystemService(BluetoothManager.class); adapter = manager.getAdapter();
+        manager = context.getSystemService(BluetoothManager.class); adapter = manager == null ? null : manager.getAdapter();
     }
     private void status(String message) { ui.post(() -> { if (active) listener.status(message); }); }
     private void fail(String message) { ui.post(() -> { if (active) { close(); listener.status(message); } }); }

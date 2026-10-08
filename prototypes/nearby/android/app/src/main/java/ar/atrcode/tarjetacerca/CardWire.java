@@ -14,10 +14,11 @@ public final class CardWire {
         try {
             byte[] bytes = text.getBytes(StandardCharsets.UTF_8);
             URI uri = new URI(text);
-            if (!text.startsWith("https://") || uri.getHost() == null || !uri.getHost().contains(".")
+            String host = uri.getRawAuthority();
+            if (!text.startsWith("https://") || host == null || !host.contains(".")
                     || uri.getRawUserInfo() != null || uri.getPort() != -1 || bytes.length > MAX_URL_BYTES
                     || !text.matches("[A-Za-z0-9\\-._~:/?#@!$&'()*+,;=%]+")) throw new Exception();
-            for (String label : uri.getHost().split("\\.", -1))
+            for (String label : host.split("\\.", -1))
                 if (!label.matches("[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?")) throw new Exception();
             return bytes;
         } catch (Exception error) { throw new IllegalArgumentException("Usá una URL HTTPS pública, sin usuario ni puerto, de hasta 384 caracteres. Codificá tildes y espacios en la URL."); }

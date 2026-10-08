@@ -16,7 +16,7 @@ vectors = [
     'http://example.org', 'https://localhost/', 'https://user@example.org', 'https://example.org:443/',
     'https://example.org/%ZZ', 'https://example.org/a b', 'https://example.org/ñ',
     'https://example.org/<script>', 'https://a..org/', 'https://-a.org/', 'https://example.org/a\\b',
-    'https://example.org/%', 'https://example.org/%2', 'javascript:alert(1)', ''
+    'https://example%2Eorg/', 'https://example.123/', 'https://example.org/%', 'https://example.org/%2', 'javascript:alert(1)', ''
 ]
 expected = []
 for value in vectors:

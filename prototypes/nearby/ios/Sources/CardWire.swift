@@ -7,7 +7,7 @@ enum CardWire {
         guard text.hasPrefix("https://"), text.utf8.count <= 384,
               text.unicodeScalars.allSatisfy({ $0.value > 32 && $0.value < 127 }),
               text.range(of: #"^[A-Za-z0-9\-._~:/?#@!$&'()*+,;=%]+$"#, options: .regularExpression) != nil,
-              let url = URLComponents(string: text), let host = url.host, host.contains("."),
+              let url = URLComponents(string: text), let host = url.percentEncodedHost, host.contains("."),
               url.user == nil, url.password == nil, url.port == nil,
               url.url != nil else { return nil }
         guard host.components(separatedBy: ".").allSatisfy({
