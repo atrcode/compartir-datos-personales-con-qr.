@@ -18,12 +18,19 @@
   "signature_image_height": 80,
   "links": [],
   "resources": [
-    {"title": "Guía de ejemplo", "url": "https://example.org/guia.pdf", "action": "Descargar PDF", "signature": true}
+    {
+      "title": "Guía de ejemplo",
+      "url": "https://example.org/guia.pdf",
+      "action": "Descargar PDF",
+      "signature": true
+    }
   ],
   "intake_only": {
     "logo_local": "",
     "photo_local": "",
-    "brand_colors": ["#155E63"],
+    "brand_colors": [
+      "#155E63"
+    ],
     "mail_service": "Gmail",
     "mail_app": "Navegador",
     "mail_device": "Windows",
@@ -38,6 +45,13 @@
       "google_issuer_id": "",
       "apple_status": "not_requested",
       "google_status": "not_requested"
+    },
+    "nearby": {
+      "mode": "not_requested",
+      "receiver_can_install_app": null,
+      "sender_devices": [],
+      "receiver_devices": [],
+      "hardware_test_status": "not_tested"
     }
   }
 }

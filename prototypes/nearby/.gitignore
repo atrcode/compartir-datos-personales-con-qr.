@@ -1,0 +1,10 @@
+**/build/
+**/.gradle/
+**/local.properties
+**/*.xcodeproj/
+**/Generated/
+**/TarjetaCerca.entitlements
+**/DerivedData/
+*.keystore
+*.p12
+*.mobileprovision

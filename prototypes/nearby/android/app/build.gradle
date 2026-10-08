@@ -1,0 +1,13 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'ar.atrcode.tarjetacerca'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'ar.atrcode.tarjetacerca'
+        minSdk 31
+        targetSdk 35
+        versionCode 1
+        versionName '0.1-prototype'
+    }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+}

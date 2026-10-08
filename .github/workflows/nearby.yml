@@ -1,0 +1,41 @@
+name: Nearby mobile prototype
+on:
+  push:
+    paths:
+      - 'prototypes/nearby/**'
+      - 'scripts/build_nfc.py'
+      - '.github/workflows/nearby.yml'
+permissions:
+  contents: read
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - run: python3 prototypes/nearby/tests/check_protocols.py java
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
+          log-accepted-android-sdk-licenses: false
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+      - run: gradle -p prototypes/nearby/android :app:assembleDebug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tarjeta-cerca-android-debug
+          path: prototypes/nearby/android/app/build/outputs/apk/debug/app-debug.apk
+  ios:
+    runs-on: macos-14
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 prototypes/nearby/tests/check_protocols.py swift
+      - run: brew install xcodegen
+      - run: xcodegen generate --spec prototypes/nearby/ios/project.yml
+      - run: xcodebuild -project prototypes/nearby/ios/TarjetaCerca.xcodeproj -scheme TarjetaCerca -sdk iphonesimulator -configuration Debug CODE_SIGNING_ALLOWED=NO build

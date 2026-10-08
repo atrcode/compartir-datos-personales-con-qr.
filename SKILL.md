@@ -1,6 +1,6 @@
 ---
 name: compartir-datos-personales-con-qr
-description: Crear y actualizar una tarjeta digital con sitio móvil, QR, contacto vCard, firma de email y opción de agregarla a Apple Wallet en iPhone o Google Wallet en Android, con instructivos adaptados al usuario. Usar para QR de contacto, sitio de firma, tarjeta de presentación, página de enlaces, pases Wallet o kits como BeBlend y Surtank. Recopilar logo, foto, bio, WhatsApp, email, LinkedIn, web y materiales mediante una pregunta por vez; preparar la emisión y comprobar los requisitos de cada Wallet.
+description: Crear y actualizar una tarjeta digital con sitio móvil, QR, contacto vCard, firma de email y opción de agregarla a Apple Wallet en iPhone o Google Wallet en Android, con instructivos adaptados al usuario. Usar para QR de contacto, sitio de firma, tarjeta de presentación, página de enlaces, pases Wallet, compartir por NFC/Bluetooth o kits como BeBlend y Surtank. Recopilar logo, foto, bio, WhatsApp, email, LinkedIn, web y materiales mediante una pregunta por vez; preparar la emisión y comprobar los requisitos de cada Wallet.
 ---
 
 # Crear tarjeta digital, QR, firma de email y Wallet
@@ -87,7 +87,11 @@ Leer [references/wallet.md](references/wallet.md) cuando se solicite esta opció
 - Reutilizar cuentas y servicios disponibles. Si se necesita contratar una suscripción o un servicio pago, preparar primero la alternativa y explicar su costo antes de solicitar esa contratación; no prometer gratuidad sin verificarla.
 - Crear `Instalar-tarjeta-Wallet.html` con pasos para cada plataforma elegida, enlaces válidos de instalación, cómo abrir la tarjeta y mostrar el QR. No prometer NFC ni actualización automática del contenido del pase por actualizar el sitio.
 
-## 7. Verificar, guardar y entregar
+## 7. Compartir por NFC y Bluetooth (opcional)
+
+Cuando se solicite compartir por cercanía, leer [references/nearby.md](references/nearby.md). Preparar la etiqueta NFC con `scripts/build_nfc.py`; para intercambio teléfono a teléfono, usar el prototipo nativo BLE indicado en la referencia y verificarlo en los dispositivos elegidos. Reutilizar la URL e identidad existentes. Distinguir Wallet, etiqueta física y app compañera; las tres cumplen funciones distintas. No prometer emisión NFC universal desde iPhone/Wallet ni Bluetooth desde una página web. Entregar por separado el estado del código, compilación, instalación y pruebas de radio.
+
+## 8. Verificar, guardar y entregar
 
 - Comprobar datos consistentes entre sitio, `.vcf` y firma; enlaces/descargas reales; lectura y destino del QR; recursos sin login; móvil y firma renderizada.
 - Distinguir «generado», «publicado», «verificado» e «instalado». Una vista previa en navegador no certifica todos los clientes de email. No dar por probado un mensaje que no se envió.

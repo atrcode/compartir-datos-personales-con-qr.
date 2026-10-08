@@ -31,3 +31,5 @@ Al elegir Wallet, seguir `wallet.md` y preguntar de a uno solo los requisitos qu
 Para varias personas, reutilizar identidad de marca y hosting; recopilar datos personales por separado y emitir un `.vcf` por persona. Definir páginas individuales o directorio compartido antes de generar QRs.
 
 Resumir lo registrado antes de construir sin imponer otra aprobación si el usuario ya pidió avanzar. Si falta un dato indispensable, completar primero entregables independientes.
+
+Si se pide NFC/Bluetooth, consultar `nearby.md`. Preguntar si el receptor puede instalar una app solo cuando esa decisión no esté resuelta. No volver a recopilar identidad ni URL.
