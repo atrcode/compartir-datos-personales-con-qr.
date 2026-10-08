@@ -8,6 +8,13 @@ Este proyecto es una **skill abierta para asistentes de IA**: una carpeta de ins
 
 ## Novedades
 
+**8 de octubre de 2026 — Prototipo NFC y Bluetooth.**
+
+Se agrega [Tarjeta Cerca](prototypes/nearby/README.md), con código nativo para Android e iPhone. Bluetooth LE permite implementar envío y recepción en las cuatro combinaciones, con la app abierta en ambos equipos. Android incluye emisión NFC HCE y ambas apps incluyen lectura NFC. **Las pruebas de radio en teléfonos reales siguen pendientes**; consultar el workflow y la [matriz de validación](prototypes/nearby/HARDWARE-TESTS.md).
+
+Para compartir sin app en el receptor, `scripts/build_nfc.py` prepara el enlace y un mensaje NDEF para grabar una etiqueta física. No graba el chip por sí solo. Se suman [instrucciones de NFC/Bluetooth](references/nearby.md), pruebas de protocolo y compilación móvil automatizada. Wallet sigue ofreciendo el pase/QR: no se promete emisión NFC universal desde la billetera ni desde iPhone.
+
+
 **8 de octubre de 2026 — Opción de Apple Wallet y Google Wallet.**
 
 Ahora la skill también puede guiar la preparación de una tarjeta para **Apple Wallet en iPhone** y **Google Wallet en Android**. Podés elegir una, ambas o continuar solo con el kit de contacto.
@@ -108,7 +115,7 @@ Con la emisión resuelta, el usuario abre el botón en su celular, revisa el pas
 
 Si faltan requisitos, se entrega la preparación claramente identificada y el paso pendiente. Los botones de instalación se habilitan cuando llevan a un pase válido. No se presenta una imagen QR, una vCard o un ZIP sin firmar como si fueran un pase Wallet.
 
-Al conservar la dirección del sitio, podés actualizar sus contenidos sin cambiar el QR. Actualizar los datos visibles de un pase ya guardado requiere el mecanismo de actualización de la plataforma o volver a agregar la nueva versión. Esta opción no incluye compartir por NFC.
+Al conservar la dirección del sitio, podés actualizar sus contenidos sin cambiar el QR. Actualizar los datos visibles de un pase ya guardado requiere el mecanismo de actualización de la plataforma o volver a agregar la nueva versión. Wallet por sí solo no habilita el envío NFC universal. Para compartir por cercanía, ver el [prototipo NFC/Bluetooth](prototypes/nearby/README.md) y sus condiciones.
 
 La [guía de implementación](references/wallet.md) detalla emisión, integración, instalación, verificación y fuentes oficiales. El [ejemplo descargable](examples/demo/) ilustra el kit base; no contiene pases Wallet emitidos.
 

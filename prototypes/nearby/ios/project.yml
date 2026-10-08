@@ -1,0 +1,29 @@
+name: TarjetaCerca
+options:
+  bundleIdPrefix: ar.atrcode
+  deploymentTarget:
+    iOS: '16.0'
+targets:
+  TarjetaCerca:
+    type: application
+    platform: iOS
+    sources: [Sources]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ar.atrcode.tarjetacerca
+        SWIFT_VERSION: '5.0'
+        TARGETED_DEVICE_FAMILY: '1'
+        CODE_SIGN_ENTITLEMENTS: TarjetaCerca.entitlements
+        MARKETING_VERSION: '0.1.0'
+        CURRENT_PROJECT_VERSION: '1'
+    info:
+      path: Generated/Info.plist
+      properties:
+        CFBundleDisplayName: Tarjeta Cerca
+        UILaunchScreen: {}
+        NSBluetoothAlwaysUsageDescription: Compartir y recibir el enlace público de una tarjeta entre teléfonos cercanos.
+        NFCReaderUsageDescription: Leer el enlace de una tarjeta o teléfono Android por NFC.
+    entitlements:
+      path: TarjetaCerca.entitlements
+      properties:
+        com.apple.developer.nfc.readersession.formats: [NDEF]
