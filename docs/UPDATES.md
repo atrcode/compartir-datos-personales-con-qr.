@@ -33,3 +33,9 @@ Pendientes de prueba real: render móvil/escritorio, preparación y recarga en n
 The updated kit combines the full online microsite with locally saved contact files, embedded contact photos, a basic offline contact QR and self-contained HTML cards. Static Spanish/English pages retain the existing URLs and branding. Referenced image bytes dropped by 92.8–94.1%; these are size measurements, not Lighthouse scores. Native sharing depends on the device/browser, with download and QR fallbacks. Real browser rendering, contact-photo imports and phone radio transfers remain unverified.
 
 Las fuentes de SURTANK se alojan localmente con sus licencias abiertas y se incorporan al HTML offline para conservar la tipografía sin depender de Google Fonts. Los HTML autocontenidos resultantes pesan aproximadamente 0.40–0.43 MB; se recomienda guardar también VCF y QR por separado.
+
+## Publicación confirmada
+
+Las tres versiones fueron publicadas. Paula y Carolina ahora tienen direcciones de alojamiento `paula-luiggi.lmocchegiani.chatgpt.site` y `carolina-dalul.lmocchegiani.chatgpt.site`; los enlaces anteriores de `ideal-clove-2036.chatgpt.site` redirigen correctamente y conservan los QR existentes. El dominio `tarjeta.mocchegiani.com.ar` sigue activo.
+
+Se comprobó respuesta pública HTTP 200 y presencia del kit offline/selector de idioma en las tres tarjetas. [GitHub Actions](https://github.com/atrcode/compartir-datos-personales-con-qr./actions/runs/37790309196) completó correctamente las 10 pruebas Python y las 5 pruebas Node. La verificación HTTP no reemplaza la revisión visual o la prueba en teléfonos.
