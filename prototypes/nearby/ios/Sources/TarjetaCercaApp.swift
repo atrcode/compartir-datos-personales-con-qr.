@@ -12,7 +12,7 @@ final class CardModel: ObservableObject {
         RadioSession(status: { [weak self] in self?.message = $0 }, found: { [weak self] peer in
             guard let self = self else { return }
             if !self.peers.contains(where: { $0.identifier == peer.identifier }) { self.peers.append(peer) }
-        }, receive: { [weak self] url in self?.received = url; self?.message = "Enlace recibido. Verificalo con la otra persona."; UIApplication.shared.isIdleTimerDisabled = false })
+        }, receive: { [weak self] url in self?.received = url; self?.message = "Enlace recibido. Verificalo con la otra persona."; UIApplication.shared.isIdleTimerDisabled = false }, end: { UIApplication.shared.isIdleTimerDisabled = false })
     }
     func share(_ url: String) {
         guard let data = CardWire.encode(url) else { message = "Usá una URL HTTPS pública, sin usuario ni puerto, de hasta 384 caracteres. Codificá espacios y tildes."; return }

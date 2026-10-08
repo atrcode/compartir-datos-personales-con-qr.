@@ -14,6 +14,7 @@ public final class BleLink {
         void status(String text);
         void found(BluetoothDevice device, String label);
         void received(String url);
+        void ended();
     }
     private final Context context;
     private final Listener listener;
@@ -24,7 +25,8 @@ public final class BleLink {
     private BluetoothGattServer server;
     private BluetoothGatt client;
     private byte[] payload;
-    private boolean active = true, scanning;
+    private volatile boolean active = true;
+    private boolean scanning;
     private final Runnable timeout = () -> fail("Sesión finalizada. Podés volver a intentarlo.");
     public BleLink(Context context, Listener listener) {
         this.context = context; this.listener = listener;
@@ -128,7 +130,7 @@ public final class BleLink {
     }
     public void close() {
         if (!active) return;
-        active = false; ui.removeCallbacksAndMessages(null);
+        active = false; ui.removeCallbacksAndMessages(null); listener.ended();
         try {
             stopScan();
             if (adapter != null && adapter.getBluetoothLeAdvertiser() != null) adapter.getBluetoothLeAdvertiser().stopAdvertising(advertiseCallback);

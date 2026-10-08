@@ -5,6 +5,7 @@ enum CardWire {
     static let value = "481cf311-1ca4-4c90-b639-14b072d803c7"
     static func encode(_ text: String) -> Data? {
         guard text.hasPrefix("https://"), text.utf8.count <= 384,
+              text.unicodeScalars.allSatisfy({ $0.value > 32 && $0.value < 127 }),
               text.range(of: #"^[A-Za-z0-9\-._~:/?#@!$&'()*+,;=%]+$"#, options: .regularExpression) != nil,
               let url = URLComponents(string: text), let host = url.host, host.contains("."),
               url.user == nil, url.password == nil, url.port == nil,

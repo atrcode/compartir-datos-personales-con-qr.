@@ -1,8 +1,9 @@
 interface:
   display_name: Tarjeta digital, QR, firma y Wallet
-  short_description: Sitio de contacto, QR, firma y Apple/Google Wallet
-  default_prompt: Usá $compartir-datos-personales-con-qr para pedirme los datos de a uno y crear mi tarjeta digital, QR, firma
-    de email y opción de Apple Wallet y Google Wallet.
+  short_description: Sitio, QR, firma, Wallet y opciones NFC/Bluetooth
+  default_prompt: Usá $compartir-datos-personales-con-qr para pedirme los datos de
+    a uno y crear mi tarjeta digital, QR, firma de email y opciones de Wallet, NFC
+    y Bluetooth según mis dispositivos.
   icon_small: assets/icon.svg
   icon_large: assets/icon.svg
 policy:

@@ -17,11 +17,14 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+      - run: python3 prototypes/nearby/tests/check_protocols.py java
       - uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
+          log-accepted-android-sdk-licenses: false
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.11.1'
-      - run: python3 prototypes/nearby/tests/check_protocols.py java
       - run: gradle -p prototypes/nearby/android :app:assembleDebug
       - uses: actions/upload-artifact@v4
         with:

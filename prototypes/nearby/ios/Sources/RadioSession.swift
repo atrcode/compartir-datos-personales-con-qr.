@@ -5,6 +5,7 @@ final class RadioSession: NSObject, CBPeripheralManagerDelegate, CBCentralManage
     let onStatus: (String) -> Void
     let onFound: (CBPeripheral) -> Void
     let onReceive: (String) -> Void
+    let onEnd: () -> Void
     private let serviceID = CBUUID(string: CardWire.service)
     private let valueID = CBUUID(string: CardWire.value)
     private var server: CBPeripheralManager?
@@ -15,8 +16,8 @@ final class RadioSession: NSObject, CBPeripheralManagerDelegate, CBCentralManage
     private var active = true
     private var scanning = false
     private var published = false
-    init(status: @escaping (String) -> Void, found: @escaping (CBPeripheral) -> Void, receive: @escaping (String) -> Void) {
-        onStatus = status; onFound = found; onReceive = receive; super.init()
+    init(status: @escaping (String) -> Void, found: @escaping (CBPeripheral) -> Void, receive: @escaping (String) -> Void, end: @escaping () -> Void) {
+        onStatus = status; onFound = found; onReceive = receive; onEnd = end; super.init()
     }
     func share(_ data: Data) {
         payload = data
@@ -100,7 +101,7 @@ final class RadioSession: NSObject, CBPeripheralManagerDelegate, CBCentralManage
         stop(); onReceive(url)
     }
     func stop() {
-        active = false; scanning = false; timer?.invalidate(); timer = nil
+        active = false; scanning = false; timer?.invalidate(); timer = nil; onEnd()
         server?.stopAdvertising(); server?.removeAllServices(); payload = nil
         central?.stopScan()
         if let peer = peer { central?.cancelPeripheralConnection(peer) }

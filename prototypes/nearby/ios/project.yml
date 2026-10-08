@@ -1,5 +1,6 @@
 name: TarjetaCerca
 options:
+  projectFormat: xcode15_3
   bundleIdPrefix: ar.atrcode
   deploymentTarget:
     iOS: '16.0'

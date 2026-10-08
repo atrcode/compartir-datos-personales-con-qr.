@@ -83,6 +83,7 @@ public final class MainActivity extends Activity implements BleLink.Listener {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if (devices != null) devices.removeAllViews(); seen.clear();
     }
+    @Override public void ended() { getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); }
     @Override public void status(String text) { message.setText(text); }
     @Override public void found(BluetoothDevice device, String label) {
         if (seen.add(device.getAddress())) button(devices, label, () -> { if (ble != null) ble.connect(device); });
