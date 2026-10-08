@@ -1,6 +1,6 @@
 ---
 name: compartir-datos-personales-con-qr
-description: Crear y actualizar una tarjeta digital con sitio móvil, QR, contacto vCard, firma de email y opción de agregarla a Apple Wallet en iPhone o Google Wallet en Android, con instructivos adaptados al usuario. Usar para QR de contacto, sitio de firma, tarjeta de presentación, página de enlaces, pases Wallet o kits como BeBlend y Surtank. Recopilar logo, foto, bio, WhatsApp, email, LinkedIn, web y materiales mediante una pregunta por vez; preparar la emisión y comprobar los requisitos de cada Wallet.
+description: Crear y actualizar una tarjeta digital con micrositio español/inglés, QR de enlace y QR de contacto offline, vCard con foto, firma de email y opción de agregarla a Apple Wallet en iPhone o Google Wallet en Android, con instructivos adaptados al usuario. Usar para QR de contacto, sitio de firma, tarjeta de presentación, página de enlaces, pases Wallet, compartir por NFC/Bluetooth o kits como BeBlend y Surtank. Recopilar logo, foto, bio, WhatsApp, email, LinkedIn, web y materiales mediante una pregunta por vez; preparar la emisión y comprobar los requisitos de cada Wallet.
 ---
 
 # Crear tarjeta digital, QR, firma de email y Wallet
@@ -9,11 +9,13 @@ description: Crear y actualizar una tarjeta digital con sitio móvil, QR, contac
 
 Crear un conjunto coherente con la identidad de cada persona o marca:
 1. Micro sitio móvil con datos, enlaces, materiales y botón «Guardar contacto».
-2. QR real en PNG y SVG que abra la dirección estable del sitio.
-3. Contacto descargable `.vcf` con todos los datos cargados.
+2. Dos QR reales en PNG/SVG: enlace al micrositio y contacto básico sin Internet.
+3. Contactos `.vcf` con y sin foto embebida; tarjeta HTML autocontenida para guardar y usar offline.
 4. Firma de email en HTML copiable y texto plano. Con identidad visual seleccionada. 
 5. Instructivo de instalación para el servicio, aplicación y dispositivo declarados.
 6. Opcional: pase de contacto para Apple Wallet (iOS) y/o Google Wallet (Android), botones para agregarlo desde el sitio e instructivo de instalación. Emitir el pase final cuando estén disponibles los requisitos de la plataforma; de lo contrario, entregar el diseño y la preparación con el requisito pendiente identificado.
+
+No escribir ni modificar código cuando el usuario siga en planificación. Implementar al recibir una solicitud explícita.
 
 Limitar el trabajo a los entregables solicitados si se pide solo una parte. Para cambios, preservar identidad, URL y QR existentes; no reconstruir el sitio por cambiar un teléfono o firma si no es necesario.
 
@@ -45,6 +47,7 @@ Limitar el trabajo a los entregables solicitados si se pide solo una parte. Para
 - Usar las skills de construcción/hosting disponibles. Preguntar donde quiere desplegar el sitio. Si no sabe o no tiene usar herramientas para explicarle el paso a paso y proponer despliegue automatico. Para un sitio existente, conservar proyecto y plataforma actuales; respetar la plataforma ya elegida.
 - Crear una página con nombre, rol/empresa, logo/foto disponibles, mini bio, «Guardar contacto», WhatsApp, email, redes, web y materiales. Ocultar bloques vacíos; no dejar placeholders ni enlaces `#`.
 - Usar HTML semántico, navegación por teclado, texto alternativo y botones cómodos. Revisar móvil de 360 px y escritorio sin desbordamiento.
+- Leer [references/offline.md](references/offline.md) para el kit local, contacto con foto, QR de datos y preparación sin Internet. Leer [references/performance-i18n.md](references/performance-i18n.md) para optimización e idiomas. Preservar el diseño y usar versiones estáticas de español/inglés, traduciendo textos y accesibilidad sin afirmar traducción del contenido de los libros o PDF.
 - Servir `.vcf` y materiales autorizados en rutas estables. Para PDF externos sin descarga garantizada, rotular «Abrir PDF». Probar rutas desde una sesión pública sin login.
 - No agregar captura de leads, pagos, analítica o protección de descargas por defecto. Si se piden, tratarlo como alcance adicional y verificarlo realmente.
 - Preparar una vista previa concreta y publicar cuando esté autorizado por la solicitud o sesión. Si falta hosting/acceso, completar primero el sitio y la firma en vista previa, guardar el paquete y precisar lo que falta. No afirmar publicación sin URL comprobada.
@@ -59,10 +62,11 @@ Ejecutar desde el directorio real de esta skill:
 python3 scripts/build_assets.py --profile /ruta/perfil.json --output /ruta/entrega
 ```
 
-Instalar `qrcode[pil]` en el entorno si falta. El script genera `contacto.vcf`, `firma-email.html`, `firma-email.txt` y, cuando hay `public_url`, `qr-contacto.png` y `qr-contacto.svg`. No construye ni publica el sitio ni emite pases Wallet: integrar estos archivos en la página creada y ejecutar el flujo Wallet del paso 6 si se solicitó. Sin URL estable, generar los otros archivos y dejar el QR pendiente. Usar una carpeta de salida nueva por versión para no confundir archivos anteriores.
+Instalar `qrcode[pil]`, Pillow y beautifulsoup4 si faltan; usar `requirements.txt` del repositorio público cuando esté disponible. El script genera `contacto.vcf`, `contacto-sin-foto.vcf`, `contacto-qr.vcf`, firma HTML/texto y `qr-contacto-datos.png/.svg`, incluso sin URL. Con `contact_photo_local`, genera también `contacto-con-foto.vcf` con JPEG embebido. Con `public_url`, genera `qr-micrositio.png/.svg` y conserva `qr-contacto.png/.svg` como alias histórico del QR al sitio. No confundir ese alias con el QR de datos. Usar `language: es` o `en` para las etiquetas de firma. No construye ni publica el sitio ni emite Wallet: integrar los archivos y ejecutar el paso 6 si se solicita. Sin URL estable, dejar únicamente el QR del micrositio pendiente. Usar una carpeta de salida nueva por versión para no confundir archivos anteriores.
 
 - Generar QR con software, nunca con un modelo de imágenes. Mantener módulos nítidos, alto contraste y margen libre de cuatro módulos. No superponer logo por defecto; si se personaliza, volver a decodificar.
 - Decodificar el PNG con una biblioteca independiente o lector disponible y comparar con la URL final exacta. Si falta decodificador, declarar pendiente la prueba de lectura; no reemplazarla por mirar la imagen. Revisar también el SVG.
+- Ofrecer «Guardar contacto con foto» y «Guardar sin foto» cuando haya retrato. Embeber la imagen en `.vcf`, sin depender de una URL remota. El QR de contacto contiene solo datos básicos sin foto. Decodificar ambos QR con un lector independiente y comparar con sus cargas exactas.
 - Comprobar UTF-8, tildes, nombre, teléfonos y URLs del `.vcf`. Probar importación cuando sea posible; no afirmar pruebas iOS/Android sin realizarlas.
 - Diseñar la firma con tabla HTML, estilos inline y fuentes comunes. Mantener texto seleccionable y enlaces reales; no convertir toda la firma en una imagen.
 - Usar imágenes PNG/JPEG con URL HTTPS pública estable y dimensiones proporcionadas. No usar SVG, base64 ni rutas locales en la firma. Conservar legibilidad con imágenes bloqueadas.
@@ -87,8 +91,13 @@ Leer [references/wallet.md](references/wallet.md) cuando se solicite esta opció
 - Reutilizar cuentas y servicios disponibles. Si se necesita contratar una suscripción o un servicio pago, preparar primero la alternativa y explicar su costo antes de solicitar esa contratación; no prometer gratuidad sin verificarla.
 - Crear `Instalar-tarjeta-Wallet.html` con pasos para cada plataforma elegida, enlaces válidos de instalación, cómo abrir la tarjeta y mostrar el QR. No prometer NFC ni actualización automática del contenido del pase por actualizar el sitio.
 
-## 7. Verificar, guardar y entregar
+## 7. Compartir por NFC y Bluetooth (opcional)
 
+Cuando se solicite compartir por cercanía, leer [references/nearby.md](references/nearby.md). Usar el menú nativo para compartir el contacto local con AirDrop/Quick Share cuando sean compatibles, sin exigir una app propia al receptor. Verificar la combinación real de equipos; si no funciona, usar QR. Distinguir envío de un enlace (offline posible; abrir el micrositio requiere Internet) de transferencia del contacto con foto (archivo local). No prometer NFC universal desde Wallet. El prototipo BLE con apps en ambos teléfonos es experimental y no cumple el requisito de receptor sin instalación; usarlo solo si se pide expresamente esa modalidad.
+
+## 8. Verificar, guardar y entregar
+
+- Comprobar los QR con decodificador independiente, parsear vCard/foto, revisar rutas locales y el HTML offline sin recursos remotos necesarios. Probar preparación y recarga offline en navegador si está disponible; si no, declarar la limitación. La caché puede ser eliminada: entregar también HTML y VCF descargables.
 - Comprobar datos consistentes entre sitio, `.vcf` y firma; enlaces/descargas reales; lectura y destino del QR; recursos sin login; móvil y firma renderizada.
 - Distinguir «generado», «publicado», «verificado» e «instalado». Una vista previa en navegador no certifica todos los clientes de email. No dar por probado un mensaje que no se envió.
 - Para Wallet, verificar firma/emisor, apertura del flujo «Agregar», contenido visible y destino del QR; diferenciar validación técnica de instalación real en dispositivo. Informar por separado el estado de Apple y Google, y si el pase es de prueba o producción.

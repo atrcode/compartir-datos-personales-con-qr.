@@ -11,19 +11,26 @@
   "whatsapp_message": "Hola Ana, vi tu tarjeta digital.",
   "linkedin": "https://www.linkedin.com/in/perfil-de-ejemplo/",
   "website": "https://example.org/",
-  "public_url": "https://example.org/ana/",
+  "public_url": "https://example.org/",
   "signature_color": "#155E63",
   "signature_image_url": "",
   "signature_image_width": 80,
   "signature_image_height": 80,
   "links": [],
   "resources": [
-    {"title": "Guía de ejemplo", "url": "https://example.org/guia.pdf", "action": "Descargar PDF", "signature": true}
+    {
+      "title": "Guía de ejemplo",
+      "url": "https://example.org/guia.pdf",
+      "action": "Descargar PDF",
+      "signature": true
+    }
   ],
   "intake_only": {
     "logo_local": "",
     "photo_local": "",
-    "brand_colors": ["#155E63"],
+    "brand_colors": [
+      "#155E63"
+    ],
     "mail_service": "Gmail",
     "mail_app": "Navegador",
     "mail_device": "Windows",
@@ -38,6 +45,20 @@
       "google_issuer_id": "",
       "apple_status": "not_requested",
       "google_status": "not_requested"
-    }
-  }
+    },
+    "nearby": {
+      "mode": "native_share_with_qr_fallback",
+      "receiver_can_install_app": false,
+      "sender_devices": [],
+      "receiver_devices": [],
+      "hardware_test_status": "not_tested"
+    },
+    "site_languages": [
+      "es",
+      "en"
+    ],
+    "offline_requested": true
+  },
+  "language": "es",
+  "contact_photo_local": ""
 }

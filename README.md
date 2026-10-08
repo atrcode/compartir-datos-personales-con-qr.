@@ -2,6 +2,19 @@
 
 **Presentate con un QR. Compartí tu contacto, tus enlaces y tus materiales desde un mismo lugar.**
 
+[English](README.en.md) · [Novedades y verificación](docs/UPDATES.md)
+
+## Novedades · octubre 2026
+
+- Micrositios español/inglés con selector ES/EN, conservando marca y dirección.
+- Dos QR: micrositio online y datos de contacto sin Internet, sin foto en el QR.
+- Contacto con foto JPEG incorporada y alternativa sin foto.
+- Tarjeta HTML autocontenida descargable; preparación del navegador para usarla offline.
+- Compartir el archivo con las funciones del teléfono cuando sean compatibles. Si no, descargarlo y usar Archivos/Contactos o mostrar el QR. El receptor no instala una app del proyecto.
+- Optimización de imágenes y pruebas automatizadas de QR, vCard, caché y alternativas de compartir.
+
+La preparación inicial necesita conexión. Un QR al sitio transporta el enlace, pero abrirlo requiere Internet. AirDrop/Quick Share dependen de los equipos y sus versiones; Wallet no habilita NFC universal. Ver [uso offline](references/offline.md) y [compatibilidad](references/nearby.md).
+
 Este proyecto es una **skill abierta para asistentes de IA**: una carpeta de instrucciones, referencias y herramientas que le enseña al asistente a preparar tu kit de contacto. Te hace preguntas de a una, organiza lo que compartís y lo convierte en entregables con tu identidad visual.
 
 [Novedades](#novedades) · [Apple y Google Wallet](#apple-wallet-y-google-wallet) · [Ver el ejemplo](#un-ejemplo-concreto) · [Empezar](#cómo-empezar) · [Proponer mejoras](CONTRIBUTING.md)
@@ -138,7 +151,7 @@ python scripts/build_assets.py --profile perfil.json --output entrega-v1
 ```
 
 - Con una `public_url` HTTPS genera vCard, firmas y QR PNG/SVG.
-- Sin `public_url` genera vCard y firmas; deja el QR pendiente.
+- Sin `public_url` genera vCard, firmas y QR de datos; deja pendiente solo el QR al micrositio.
 - El generador valida el formato de la URL, pero no comprueba que el sitio esté publicado. Esa comprobación y la lectura del QR forman parte del flujo de la skill.
 - El script no crea ni publica la página, no instala la firma en una cuenta y no firma ni emite pases Wallet. Esas tareas siguen el flujo de la skill con las herramientas y accesos disponibles.
 
@@ -162,3 +175,30 @@ El archivo `perfil.json` y las entregas están excluidos por `.gitignore`. Mante
 Para reportar un problema, abrí un **Issue**. Para proponer una mejora, enviá un **Pull Request**. En [`CONTRIBUTING.md`](CONTRIBUTING.md) están los pasos y las pruebas. Son bienvenidas mejoras de accesibilidad, nuevas guías de correo y Wallet, integraciones de emisión, traducciones y ejemplos.
 
 **Autor: Leandro E. Mocchegiani · Licencia [MIT](LICENSE).**
+
+## Contacto con foto y tarjeta offline
+
+En el perfil, `contact_photo_local` indica el retrato autorizado; `language` puede ser `es` o `en` para la firma. Los archivos locales de perfil no se publican. `qr-contacto-datos` contiene la vCard básica; `qr-micrositio` apunta al sitio. Los archivos históricos `qr-contacto.png/.svg` siguen siendo alias del QR al sitio.
+
+Después de construir las páginas estáticas y tener el contacto y las imágenes locales:
+
+```bash
+python scripts/build_offline.py --site-dir /ruta/dist \
+  --contact contacto.vcf --photo /ruta/retrato.jpg \
+  --public-url https://tarjeta.example.org/ --name "Ana Pérez"
+```
+
+Esta integración exige un origen dedicado en `/`; para subdirectorios hay que adaptar las rutas y el alcance del service worker. Conserva el contacto existente y agrega versiones con/sin foto, QR, HTML offline ES/EN y controles. No emite Wallet ni instala nada en el receptor.
+
+Para guardar el contacto sin conexión, usar el QR de datos o transferir el VCF local por un medio compatible. Para conservar la foto, transferir el VCF con foto. La importación final depende de la agenda; comprobarla en teléfonos reales. Descargar también HTML, VCF y QR como respaldo, porque el navegador puede borrar su caché.
+
+### Pruebas
+
+```bash
+python -m pip install -r requirements-dev.txt
+python -m unittest discover -s tests -v
+node --test tests/test_offline_runtime.cjs
+```
+
+Las pruebas simuladas verifican código y archivos; no certifican radio, todos los lectores de cámara, todos los clientes de correo ni la importación de fotos en cada agenda.
+

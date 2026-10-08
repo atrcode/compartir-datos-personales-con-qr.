@@ -4,7 +4,9 @@
 Install qrcode[pil] when generating QR. Use a fresh output directory per version.
 """
 import argparse
+import base64
 import html
+import io
 import json
 from pathlib import Path
 import re
@@ -70,6 +72,9 @@ def build(profile, output):
     if not re.fullmatch(r"#[0-9a-fA-F]{6}", color):
         raise ValueError("signature_color debe ser #RRGGBB")
     role, org = text(profile, "role"), text(profile, "organization")
+    language = text(profile, "language") or "es"
+    if language not in ("es", "en"):
+        raise ValueError("language: es o en")
     links = []
     if tel:
         links.append((text(profile, "phone"), "tel:" + tel))
@@ -85,7 +90,7 @@ def build(profile, output):
         if text(profile, key):
             links.append((label, url(text(profile, key))))
     if public:
-        links.append(("Mi tarjeta de contacto", public))
+        links.append(("My contact card" if language == "en" else "Mi tarjeta de contacto", public))
     for item in profile.get("links", []):
         label = text(item, "label")
         if not label:
@@ -116,6 +121,19 @@ def build(profile, output):
     for target in dict.fromkeys(filter(None, (public, text(profile, "website"), text(profile, "linkedin")))):
         card.append("URL:" + url(target))
     card += ["END:VCARD"]
+    basic_card = ["BEGIN:VCARD", "VERSION:3.0"] + [
+        line for line in card if line.startswith(("FN:", "N:", "ORG:", "TEL", "EMAIL"))
+    ] + (["URL:" + public] if public else []) + ["END:VCARD"]
+    basic_payload = "\r\n".join(basic_card) + "\r\n"
+    plain_card = "\r\n".join(fold(line) for line in card) + "\r\n"
+    photo_path = text(profile, "contact_photo_local")
+    if photo_path:
+        from PIL import Image, ImageOps
+        photo = ImageOps.fit(ImageOps.exif_transpose(Image.open(photo_path)).convert("RGB"),
+                             (320, 320), method=Image.Resampling.LANCZOS)
+        photo_buffer = io.BytesIO()
+        photo.save(photo_buffer, format="JPEG", quality=82, optimize=True)
+        card.insert(-1, "PHOTO;ENCODING=b;TYPE=JPEG:" + base64.b64encode(photo_buffer.getvalue()).decode("ascii"))
 
     esc, image_cell = html.escape, ""
     image_url = text(profile, "signature_image_url")
@@ -133,9 +151,9 @@ def build(profile, output):
     for label, target in links:
         body += (f'<br><a href="{esc(target)}" style="color:{color};text-decoration:underline;'
                  f'font-size:13px;line-height:21px;">{esc(label)}</a>')
-    signature = (f'<!doctype html><html lang="es"><head><meta charset="utf-8">'
+    signature = (f'<!doctype html><html lang="{language}"><head><meta charset="utf-8">'
                  f'<meta name="viewport" content="width=device-width,initial-scale=1">'
-                 f'<title>Firma de {esc(name)}</title></head><body>'
+                 f'<title>{"Signature for" if language == "en" else "Firma de"} {esc(name)}</title></head><body>'
                  f'<table role="presentation" cellpadding="0" cellspacing="0" border="0" '
                  f'style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:21px;">'
                  f'<tr>{image_cell}<td valign="top" style="padding:0;">{body}</td></tr></table>'
@@ -159,12 +177,27 @@ def build(profile, output):
 
     output.mkdir(parents=True, exist_ok=True)
     (output / "contacto.vcf").write_bytes(("\r\n".join(fold(line) for line in card) + "\r\n").encode("utf-8"))
+    (output / "contacto-sin-foto.vcf").write_bytes(plain_card.encode("utf-8"))
+    if photo_path:
+        (output / "contacto-con-foto.vcf").write_bytes((output / "contacto.vcf").read_bytes())
+    (output / "contacto-qr.vcf").write_bytes(basic_payload.encode("utf-8"))
+    import qrcode
+    from qrcode.image.svg import SvgPathFillImage
+    basic_qr = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_M, box_size=8, border=4)
+    basic_qr.add_data(basic_payload)
+    basic_qr.make(fit=True)
+    basic_qr.make_image(fill_color="black", back_color="white").save(output / "qr-contacto-datos.png")
+    basic_qr.make_image(image_factory=SvgPathFillImage).save(str(output / "qr-contacto-datos.svg"))
     (output / "firma-email.html").write_text(signature, encoding="utf-8")
     (output / "firma-email.txt").write_text(plain, encoding="utf-8")
     if public:
         png.save(output / "qr-contacto.png")
         svg.save(str(output / "qr-contacto.svg"))
-    return {"contacto": "generado", "firma": "generada", "qr": "generado" if public else "pendiente de URL estable"}
+        png.save(output / "qr-micrositio.png")
+        svg.save(str(output / "qr-micrositio.svg"))
+    return {"contacto": "generado", "firma": "generada", "qr_contacto_datos": "generado",
+            "qr_micrositio": "generado" if public else "pendiente de URL estable",
+            "qr": "generado" if public else "pendiente de URL estable"}
 
 
 def main():
